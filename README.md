@@ -1,7 +1,14 @@
 # C++14 LRU Cache
-builds & coverage goes here
+builds & coverage
 
-Header only C++14 LRU Cache
+Header only C++14 LRU Cache with the following public interface:
+* `constructor` - Create a new lru cache with a limited capacity.
+* `empty` - Check if the lru cache has no items.
+* `size` - Get the number of items in the lru cache.
+* `clear` - Remove all items from the lru cache.
+* `put` - Add an item to the lru cache or update the existing item's value and mark it as the most recent one if the key already exists.
+* `get` - Get the value of an existing item and mark the item as the most recent one.
+* `contains` - Check if the lru cache contains an item with the given key.
 
 ## Requirements
 * C++14 compiler
@@ -12,10 +19,6 @@ Header only C++14 LRU Cache
 * cppcheck
 * clang-tidy
 * clang-format
-
-```
-./dependencies/install.sh
-```
 
 ## Build
 Build the project

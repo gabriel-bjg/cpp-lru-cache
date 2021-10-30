@@ -32,21 +32,21 @@ class lru_cache {
     }
 
     /**
-     * @brief Check if the lru cache has no elements.
+     * @brief Check if the lru cache has no items.
      *
      * @return true if the lru cache is empty, false otherwise.
      */
     bool empty() const noexcept { return keys_.empty(); }
 
     /**
-     * @brief Return the number of elements in the lru cache.
+     * @brief Return the number of items in the lru cache.
      * 
-     * @return The number of elements.
+     * @return The number of items.
      */
     std::size_t size() const noexcept { return keys_.size(); }
 
     /**
-     * @brief Removes all elements from the lru cache.
+     * @brief Remove all items from the lru cache.
      */
     void clear() noexcept {
         keys_.clear();
