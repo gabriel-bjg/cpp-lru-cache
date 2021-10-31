@@ -19,6 +19,7 @@ Header only C++14 LRU Cache with the following public interface:
 * cppcheck
 * clang-tidy
 * clang-format
+* gcovr
 
 ## Build
 Build the project
@@ -29,6 +30,11 @@ make build
 Run tests
 ```
 make check
+```
+
+Run tests with coverage report. The report can be found at: build/coverage.xml
+```
+check-with-coverage
 ```
 
 Clean build directory
