@@ -12,7 +12,3 @@ sudo apt-get install -y cppcheck
 
 # Install gcovr
 sudo apt-get install -y gcovr
-
-# Install clang-tidy
-# brew install llvm
-# ln -s "$(brew --prefix llvm)/bin/clang-tidy" "/usr/local/bin/clang-tidy" 
