@@ -1,0 +1,26 @@
+name: Makefile CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build
+      run: make build
+      
+    - name: Run tests with coverage report
+      run: make check-with-coverage
