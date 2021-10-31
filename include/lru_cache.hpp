@@ -1,8 +1,6 @@
-#include <cassert>
 #include <cstdint>
 #include <list>
 #include <stdexcept>
-#include <string>
 #include <unordered_map>
 #include <utility>
 
@@ -40,7 +38,7 @@ class lru_cache {
 
     /**
      * @brief Return the number of items in the lru cache.
-     * 
+     *
      * @return The number of items.
      */
     std::size_t size() const noexcept { return keys_.size(); }
