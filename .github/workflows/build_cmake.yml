@@ -7,14 +7,10 @@ on:
       - main
       - master
 
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  
 
     steps:
     - uses: actions/checkout@v2
