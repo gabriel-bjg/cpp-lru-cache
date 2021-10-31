@@ -22,6 +22,12 @@ Header only C++14 LRU Cache with the following public interface:
 * clang-format
 * gcovr
 
+Install dependencies on Ubuntu
+```
+chmod +x ./dependencies/install.sh 
+./dependencies/install.sh
+```
+
 ## Build
 Build the project
 ```
@@ -33,7 +39,7 @@ Run tests
 make check
 ```
 
-Run tests with coverage report. The report can be found at: build/coverage.xml
+Run tests with coverage report. The report can be found at: `build/coverage.xml`
 ```
 check-with-coverage
 ```
@@ -53,7 +59,7 @@ cache.put(std::make_pair(1, "one"));
 cache.put(std::make_pair(2, "two"));
 cache.put(std::make_pair(3, "three"));
 
-// Get item's value from the cache
+// Get item's value
 const auto& item_value = cache.get(1);
 
 // Check if the cache contains an item
@@ -68,5 +74,6 @@ cache.clear();
 if (cache.empty()) {
     std::cout << "The cache is empty\n";
 }
-
 ```
+
+For more examples please see [behavioral tests](./test/lru_cache_tests.cpp)
