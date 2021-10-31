@@ -25,3 +25,9 @@ jobs:
       
     - name: Run tests with coverage report
       run: make check-with-coverage
+
+    - name: Publish coverage to codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./build/coverage.xml

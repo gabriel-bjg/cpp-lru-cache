@@ -1,5 +1,6 @@
 # C++14 LRU Cache
 [![build](https://github.com/gabriel-bjg/cpp-lru-cache/workflows/Makefile%20build/badge.svg)](https://github.com/gabriel-bjg/cpp-lru-cache/actions/workflows/build_make.yml)
+[![codecov](https://codecov.io/gh/gabriel-bjg/cpp-lru-cache/branch/main/graph/badge.svg)](https://codecov.io/gh/gabriel-bjg/cpp-lru-cache)
 
 Header only C++14 LRU Cache with the following public interface:
 * `constructor` - Create a new lru cache with a limited capacity.
