@@ -14,6 +14,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+          chmod +x ./dependencies/install.sh
+          ./dependencies/install.sh
     
     - name: Build
       run: make build
