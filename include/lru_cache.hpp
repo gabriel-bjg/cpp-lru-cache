@@ -74,7 +74,7 @@ class lru_cache {
      * @return The value associated to the given key.
      * @throws std::out_of_range if the key does not exist.
      */
-    Value &get(const Key &key) {
+    const Value &get(const Key &key) {
         if (!contains(key)) {
             throw std::out_of_range{"Key not found"};
         }
@@ -140,7 +140,7 @@ class lru_cache {
      *
      * @return The value of the most recent used item.
      */
-    Value &get_front_value() noexcept { return items_.front().second; }
+    const Value &get_front_value() noexcept { return items_.front().second; }
 
     std::size_t capacity_;
     std::list<item_type> items_;
