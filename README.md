@@ -2,14 +2,16 @@
 [![build](https://github.com/gabriel-bjg/cpp-lru-cache/workflows/Makefile%20build/badge.svg)](https://github.com/gabriel-bjg/cpp-lru-cache/actions/workflows/build_make.yml)
 [![codecov](https://codecov.io/gh/gabriel-bjg/cpp-lru-cache/branch/main/graph/badge.svg?token=PA4DL4FXUE)](https://codecov.io/gh/gabriel-bjg/cpp-lru-cache)
 
-Header only C++14 LRU Cache with the following public interface:
-* `constructor` - Create a new lru cache with a limited capacity.
-* `empty` - Check if the lru cache has no items.
-* `size` - Get the number of items in the lru cache.
-* `clear` - Remove all items from the lru cache.
-* `put` - Add an item to the lru cache or update the existing item's value and mark it as the most recent one if the key already exists.
-* `get` - Get the value of an existing item and mark the item as the most recent one.
-* `contains` - Check if the lru cache contains an item with the given key.
+Header only C++14 LRU Cache with the following public interface
+| Public API | Description | Complexity |
+| --- | --- | --- |
+`constructor` | Create a new lru cache with a limited capacity | constant |
+`empty` | Check if the lru cache has no items | constant |
+`size` | Get the number of items in the lru cache | constant |
+`clear` | Remove all items from the lru cache | linear |
+`put` | Add an item to the lru cache or update the existing item's value and mark it as the most recent one if the key already exists | amortized constant on average, worst case linear |
+`get` | Get the value of an existing item and mark the item as the most recent one | constant on average, worst case linear |
+`contains` | Check if the lru cache contains an item with the given key | constant on average, worst case linear |
 
 ## Requirements
 * C++14 compiler
