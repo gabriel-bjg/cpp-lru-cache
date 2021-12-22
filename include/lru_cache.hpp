@@ -140,7 +140,7 @@ class lru_cache {
      *
      * @return The value of the most recent used item.
      */
-    const Value &get_front_value() noexcept { return items_.front().second; }
+    const Value &get_front_value() const noexcept { return items_.front().second; }
 
     std::size_t capacity_;
     std::list<item_type> items_;
