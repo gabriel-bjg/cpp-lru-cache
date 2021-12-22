@@ -1,3 +1,6 @@
+#ifndef BJG_LRU_CACHE_HPP
+#define BJG_LRU_CACHE_HPP
+
 #include <list>
 #include <stdexcept>
 #include <unordered_map>
@@ -147,5 +150,6 @@ class lru_cache {
     std::list<item_type> items_;
     std::unordered_map<const Key, typename std::list<item_type>::iterator, std::hash<Key>> keys_;
 };
-
 }  // namespace bjg
+
+#endif
