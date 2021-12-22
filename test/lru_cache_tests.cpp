@@ -6,7 +6,7 @@
 #include <string>
 #include <utility>
 
-#include "lru_cache.hpp"
+#include "bjg/lru_cache.hpp"
 
 SCENARIO("Create a lru cache with different sizes", "[lru_cache_constructor]") {
     GIVEN("A lru cache with key:int and value:std::string") {
@@ -65,7 +65,7 @@ SCENARIO("Insert items into lru cache without exceeding capacity", "[lru_cache_i
                 CHECK(cache.size() == 0);
                 CHECK(cache.empty());
                 CHECK_FALSE(cache.contains(1));
-                CHECK_THROWS_AS([&cache]() {cache.get(1);}(), std::out_of_range);
+                CHECK_THROWS_AS([&cache]() { cache.get(1); }(), std::out_of_range);
             }
         }
     }
@@ -113,9 +113,9 @@ SCENARIO("Insert items into lru cache and reach capacity", "[lru_cache_insert_it
                 CHECK(cache.size() == 5);
                 CHECK_FALSE(cache.empty());
                 CHECK_FALSE(cache.contains(1));
-                CHECK_THROWS_AS([&cache]() {cache.get(1);}(), std::out_of_range);
+                CHECK_THROWS_AS([&cache]() { cache.get(1); }(), std::out_of_range);
                 CHECK_FALSE(cache.contains(2));
-                CHECK_THROWS_AS([&cache]() {cache.get(2);}(), std::out_of_range);
+                CHECK_THROWS_AS([&cache]() { cache.get(2); }(), std::out_of_range);
                 CHECK(cache.contains(3));
                 CHECK(cache.get(3) == "three");
                 CHECK(cache.contains(4));
@@ -158,11 +158,11 @@ SCENARIO("Operate on a full lru cache", "[lru_cache_full_capacity_operations]") 
                 CHECK(cache.contains(1));
                 CHECK(cache.get(1) == "one");
                 CHECK_FALSE(cache.contains(2));
-                CHECK_THROWS_AS([&cache]() {cache.get(2);}(), std::out_of_range);
+                CHECK_THROWS_AS([&cache]() { cache.get(2); }(), std::out_of_range);
                 CHECK(cache.contains(3));
                 CHECK(cache.get(3) == "THREE");
                 CHECK_FALSE(cache.contains(4));
-                CHECK_THROWS_AS([&cache]() {cache.get(4);}(), std::out_of_range);
+                CHECK_THROWS_AS([&cache]() { cache.get(4); }(), std::out_of_range);
                 CHECK(cache.contains(5));
                 CHECK(cache.get(5) == "five");
                 CHECK(cache.contains(6));
@@ -179,6 +179,6 @@ SCENARIO("Operate on a full lru cache", "[lru_cache_full_capacity_operations]") 
                 CHECK(cache.size() == 0);
                 CHECK(cache.empty());
             }
-        }         
+        }
     }
 }
