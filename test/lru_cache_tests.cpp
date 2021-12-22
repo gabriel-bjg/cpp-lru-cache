@@ -10,7 +10,7 @@
 
 SCENARIO("Create a lru cache with different sizes", "[lru_cache_constructor]") {
     GIVEN("A lru cache with key:int and value:std::string") {
-        using lru_cache_t = lru_cache<int, std::string>;
+        using lru_cache_t = bjg::lru_cache<int, std::string>;
 
         WHEN("The lru cache is created with zero capacity") {
             THEN("The construction throws") {
@@ -28,7 +28,7 @@ SCENARIO("Create a lru cache with different sizes", "[lru_cache_constructor]") {
 
 SCENARIO("Insert items into lru cache without exceeding capacity", "[lru_cache_insert_items]") {
     GIVEN("An empty lru cache with key:int and value:std::string") {
-        using lru_cache_t = lru_cache<int, std::string>;
+        using lru_cache_t = bjg::lru_cache<int, std::string>;
         lru_cache_t cache{100};
 
         REQUIRE(cache.size() == 0);
@@ -73,7 +73,7 @@ SCENARIO("Insert items into lru cache without exceeding capacity", "[lru_cache_i
 
 SCENARIO("Insert items into lru cache and reach capacity", "[lru_cache_insert_items_reach_capacity]") {
     GIVEN("A lru cache with key:int, value:std::string, size = 3 and capacity = 5") {
-        using lru_cache_t = lru_cache<int, std::string>;
+        using lru_cache_t = bjg::lru_cache<int, std::string>;
         lru_cache_t cache{5};
 
         cache.put(std::make_pair(1, "one"));
@@ -133,7 +133,7 @@ SCENARIO("Insert items into lru cache and reach capacity", "[lru_cache_insert_it
 
 SCENARIO("Operate on a full lru cache", "[lru_cache_full_capacity_operations]") {
     GIVEN("A lru cache with key:int, value:std::string, size = 5, capacity = 5") {
-        using lru_cache_t = lru_cache<int, std::string>;
+        using lru_cache_t = bjg::lru_cache<int, std::string>;
         lru_cache_t cache{5};
 
         cache.put(std::make_pair(1, "one"));

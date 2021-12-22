@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <utility>
 
+namespace bjg {
+
 /**
  * @brief Least Recently Used (LRU) cache container with a fixed capacity. After the maximum capacity is reached, least recently
  * used items are evicted from the cache.
@@ -146,3 +148,5 @@ class lru_cache {
     std::list<item_type> items_;
     std::unordered_map<const Key, typename std::list<item_type>::iterator, std::hash<Key>> keys_;
 };
+
+}  // namespace bjg
