@@ -43,7 +43,7 @@ make check
 
 Run tests with coverage report. The report can be found at: `build/coverage.xml`
 ```
-check-with-coverage
+make check-with-coverage
 ```
 
 Clean build directory
