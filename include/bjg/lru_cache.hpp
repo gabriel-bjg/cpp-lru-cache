@@ -19,6 +19,8 @@ template <class Key, class Value>
 class lru_cache {
    public:
     using item_type = std::pair<const Key, Value>;
+    using items_list = std::list<item_type>;
+    using items_list_iterator = typename items_list::iterator;
 
     /**
      * @brief Create a new lru cache with a limited capacity.
@@ -147,8 +149,8 @@ class lru_cache {
     const Value &get_front_value() const noexcept { return items_.front().second; }
 
     std::size_t capacity_;
-    std::list<item_type> items_;
-    std::unordered_map<const Key, typename std::list<item_type>::iterator, std::hash<Key>> keys_;
+    items_list items_;
+    std::unordered_map<const Key, items_list_iterator, std::hash<Key>> keys_;
 };
 }  // namespace bjg
 
