@@ -3,6 +3,7 @@
 
 #include <list>
 #include <stdexcept>
+#include <type_traits>
 #include <unordered_map>
 #include <utility>
 
@@ -105,7 +106,7 @@ class lru_cache {
     void restrict_capacity() {
         if (items_.size() > capacity_) {
             keys_.erase(items_.back().first);
-            items_.pop_back();
+            items_.pop_back();  // never throws as capacity is always > 0 and items_.size() > capacity
         }
     }
 
@@ -115,9 +116,23 @@ class lru_cache {
      * @param item The item to insert.
      */
     void insert_new_item(const item_type &item) {
-        items_.push_front(item);
-        keys_.emplace(item.first, items_.begin());
-        restrict_capacity();
+        auto emplaced_item = std::make_pair(keys_.end(), false); 
+        try {
+            items_.push_front(item);
+            emplaced_item = keys_.emplace(item.first, items_.begin());
+        } catch (...) {
+            items_.pop_front();
+            throw;
+        }
+
+        try {
+            restrict_capacity();
+        } catch(...) {
+            // If the code execution reaches this point, emplaced_item contains a valid iterator
+            keys_.erase(emplaced_item.first);
+            items_.pop_front();
+            throw;
+        }
     }
 
     /**
@@ -130,7 +145,8 @@ class lru_cache {
         const auto existing_item = keys_.find(key);
         if (existing_item->second != items_.begin()) {
             items_.splice(items_.begin(), items_, existing_item->second, std::next(existing_item->second));
-            existing_item->second = items_.begin();
+            auto it_copy = items_.begin();
+            std::swap(existing_item->second, it_copy);
         }
     }
 
@@ -139,10 +155,15 @@ class lru_cache {
      *
      * @param value The new value.
      */
-    void update_front_value(const Value &value) noexcept { items_.front().second = value; }
+    void update_front_value(const Value &value) noexcept(std::is_nothrow_copy_assignable<Value>()) {
+        auto value_copy = value;
+        std::swap(items_.front().second, value_copy);
+    }
 
     /**
      * @brief Return the value of the most recent used item.
+     *
+     * @pre @p items_ must contain at least one item.
      *
      * @return The value of the most recent used item.
      */
