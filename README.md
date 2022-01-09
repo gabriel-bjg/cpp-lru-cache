@@ -1,8 +1,8 @@
-# C++14 LRU Cache
+# C++11 LRU Cache
 [![build](https://github.com/gabriel-bjg/cpp-lru-cache/workflows/Makefile%20build/badge.svg)](https://github.com/gabriel-bjg/cpp-lru-cache/actions/workflows/build_make.yml)
 [![codecov](https://codecov.io/gh/gabriel-bjg/cpp-lru-cache/branch/main/graph/badge.svg?token=PA4DL4FXUE)](https://codecov.io/gh/gabriel-bjg/cpp-lru-cache)
 
-Header only C++14 LRU Cache with strong exception safety.
+Header only C++11 LRU Cache with strong exception safety.
 | Public API | Description | Complexity | Exception safety |
 | --- | --- | --- | --- |
 `constructor` | Create a new lru cache with a limited capacity | constant | strong |
@@ -16,7 +16,7 @@ Header only C++14 LRU Cache with strong exception safety.
 The `insert_new_item` private function uses the catch and re-throw mechanism in order to guarantee strong exception safety. This decision was taken to avoid any other dependencies. You can find other solutions [here](https://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758). If you already have a pattern/mechanism in your project for handling this situation, please consider adapting the lru_cache according to your project.
 
 ## Requirements
-* C++14 compiler
+* C++11 compiler
 * CMake 3.15
 
 ## Project dependencies

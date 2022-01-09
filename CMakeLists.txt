@@ -11,8 +11,8 @@ add_library(project_options INTERFACE)
 # Interface which specifies the project's warnings
 add_library(project_warnings INTERFACE)
 
-# Set C++14 standard
-target_compile_features(project_options INTERFACE cxx_std_14)
+# Set C++11 standard
+target_compile_features(project_options INTERFACE cxx_std_11)
 
 # Add linker configuration
 include(cmake/Linker.cmake)
