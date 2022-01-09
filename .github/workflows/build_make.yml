@@ -21,7 +21,9 @@ jobs:
           ./dependencies/install.sh
     
     - name: Build
-      run: make build
+      run: |
+          make clean
+          make build
       
     - name: Run tests with coverage report
       run: make check-with-coverage
