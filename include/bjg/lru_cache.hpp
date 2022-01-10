@@ -116,9 +116,9 @@ class lru_cache {
      * @param item The item to insert.
      */
     void insert_new_item(const item_type &item) {
-        auto emplaced_item = std::make_pair(keys_.end(), false); 
+        auto emplaced_item = std::make_pair(keys_.end(), false);
+        items_.push_front(item); 
         try {
-            items_.push_front(item);
             emplaced_item = keys_.emplace(item.first, items_.begin());
         } catch (...) {
             items_.pop_front();
