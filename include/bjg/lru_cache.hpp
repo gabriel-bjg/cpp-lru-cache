@@ -144,9 +144,15 @@ class lru_cache {
     void move_to_front(const Key &key) {
         const auto existing_item = keys_.find(key);
         if (existing_item->second != items_.begin()) {
-            items_.splice(items_.begin(), items_, existing_item->second, std::next(existing_item->second));
-            auto it_copy = items_.begin();
-            std::swap(existing_item->second, it_copy);
+            const auto next_it = std::next(existing_item->second);
+            items_.splice(items_.begin(), items_, existing_item->second, next_it);
+            try {
+                auto it_copy = items_.begin();
+                std::swap(existing_item->second, it_copy);
+            }
+            catch(...) {
+                items_.splice(next_it, items_, items_.begin(), std::next(items_.begin()));
+            }
         }
     }
 
