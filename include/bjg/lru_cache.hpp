@@ -152,6 +152,7 @@ class lru_cache {
             }
             catch(...) {
                 items_.splice(next_it, items_, items_.begin(), std::next(items_.begin()));
+                throw;
             }
         }
     }
