@@ -24,7 +24,7 @@ class lru_cache {
     using items_list_iterator = typename items_list::iterator;
 
     /**
-     * @brief Create a new lru cache with a limited capacity.
+     * @brief Creates a new lru cache with a limited capacity.
      *
      * @param capacity The maximum capacity of the cache. Once this limit is reached, least recent items are evicted.
      *
@@ -37,14 +37,14 @@ class lru_cache {
     }
 
     /**
-     * @brief Check if the lru cache has no items.
+     * @brief Checks if the lru cache has no items.
      *
      * @return true if the lru cache is empty, false otherwise.
      */
     bool empty() const noexcept { return keys_.empty(); }
 
     /**
-     * @brief Return the number of items in the lru cache.
+     * @brief Returns the number of items in the lru cache.
      *
      * @return The number of items.
      */
@@ -59,7 +59,7 @@ class lru_cache {
     }
 
     /**
-     * @brief Add an item to the lru cache or update the existing item's value and mark it as the most recent one if the key
+     * @brief Adds an item to the lru cache or update the existing item's value and mark it as the most recent one if the key
      * already exists.
      *
      * @param item The item to insert.
@@ -74,7 +74,7 @@ class lru_cache {
     }
 
     /**
-     * @brief Return the value of an existing item and mark the item as the most recent one.
+     * @brief Returns the value of an existing item and mark the item as the most recent one.
      *
      * @param key The key of the existing item.
      *
@@ -91,7 +91,7 @@ class lru_cache {
     }
 
     /**
-     * @brief Check if the lru cache contains an item with the given key.
+     * @brief Checks if the lru cache contains an item with the given key.
      *
      * @param key The key to check.
      *
@@ -136,7 +136,7 @@ class lru_cache {
     }
 
     /**
-     * @brief Evict the least recent item if the lru cache size exceeds the maximum capacity.
+     * @brief Evicts the least recent item if the lru cache size exceeds the maximum capacity.
      */
     void restrict_capacity() {
         if (items_.size() > capacity_) {
@@ -146,7 +146,7 @@ class lru_cache {
     }
 
     /**
-     * @brief Insert an item as the most recent one to the lru cache.
+     * @brief Inserts an item as the most recent one to the lru cache.
      *
      * @param item The item to insert.
      */
@@ -164,7 +164,7 @@ class lru_cache {
     }
 
     /**
-     * @brief Mark an item as the most recent one.
+     * @brief Marks an item as the most recent one.
      *
      * @param key The key of the item to mark.
      * @pre @p key must exist in @p items_
@@ -180,7 +180,7 @@ class lru_cache {
     }
 
     /**
-     * @brief Update the value of the most recent used item.
+     * @brief Updates the value of the most recent used item.
      *
      * @param value The new value.
      */
@@ -190,7 +190,7 @@ class lru_cache {
     }
 
     /**
-     * @brief Return the value of the most recent used item.
+     * @brief Returns the value of the most recent used item.
      *
      * @pre @p items_ must contain at least one item.
      *
