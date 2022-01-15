@@ -101,6 +101,41 @@ class lru_cache {
 
    private:
     /**
+     * This is a simpler version for the GuardedScope mechanism presented here:
+     * https://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758 If you already have a pattern/mechanism in
+     * your project for handling this situation, please consider adapting the lru_cache according to your project and drop this
+     * one.
+     */
+    template <typename F>
+    class guarded_scope {
+       public:
+        explicit guarded_scope(F &&f) noexcept : f_(std::move(f)), dismiss_{false} {}
+
+        ~guarded_scope() noexcept(noexcept(f_)) {
+            if (!dismiss_) f_();
+        }
+
+        void dismiss() noexcept { dismiss_ = true; }
+
+       private:
+        F f_;
+        bool dismiss_;
+    };
+
+    /**
+     * @brief Calls a function and reverts its behavior if the call fails.
+     *
+     * @param f The function to call.
+     * @param r The function which reverts f's behavior.
+     */
+    template <typename F, typename R>
+    void guarded_call(F &&f, R &&r) {
+        auto guard = guarded_scope<R>(std::forward<R>(r));
+        f();
+        guard.dismiss();
+    }
+
+    /**
      * @brief Evict the least recent item if the lru cache size exceeds the maximum capacity.
      */
     void restrict_capacity() {
@@ -117,22 +152,15 @@ class lru_cache {
      */
     void insert_new_item(const item_type &item) {
         auto emplaced_item = std::make_pair(keys_.end(), false);
-        items_.push_front(item); 
-        try {
-            emplaced_item = keys_.emplace(item.first, items_.begin());
-        } catch (...) {
-            items_.pop_front();
-            throw;
-        }
-
-        try {
-            restrict_capacity();
-        } catch(...) {
-            // If the code execution reaches this point, emplaced_item contains a valid iterator
-            keys_.erase(emplaced_item.first);
-            items_.pop_front();
-            throw;
-        }
+        items_.push_front(item);
+        guarded_call([this, &item, &emplaced_item]() { emplaced_item = keys_.emplace(item.first, items_.begin()); },
+                     [this]() { items_.pop_front(); });
+        guarded_call([this]() { restrict_capacity(); },
+                     [this, &emplaced_item]() {
+                         // If the code execution reaches this point, emplaced_item contains a valid iterator
+                         keys_.erase(emplaced_item.first);
+                         items_.pop_front();
+                     });
     }
 
     /**
@@ -143,18 +171,12 @@ class lru_cache {
      */
     void move_to_front(const Key &key) {
         const auto existing_item = keys_.find(key);
-        if (existing_item->second != items_.begin()) {
-            const auto next_it = std::next(existing_item->second);
-            items_.splice(items_.begin(), items_, existing_item->second, next_it);
-            try {
-                auto it_copy = items_.begin();
-                std::swap(existing_item->second, it_copy);
-            }
-            catch(...) {
-                items_.splice(next_it, items_, items_.begin(), std::next(items_.begin()));
-                throw;
-            }
-        }
+        if (existing_item->second == items_.begin()) return;
+
+        const auto next_it = std::next(existing_item->second);
+        items_.splice(items_.begin(), items_, existing_item->second, next_it);
+        guarded_call([this, &existing_item]() { auto it_copy = items_.begin(); std::swap(existing_item->second, it_copy); },
+                     [this, &next_it]() { items_.splice(next_it, items_, items_.begin(), std::next(items_.begin())); });
     }
 
     /**
