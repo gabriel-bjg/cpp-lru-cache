@@ -105,13 +105,15 @@ class lru_cache {
      * https://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758 If you already have a pattern/mechanism in
      * your project for handling this situation, please consider adapting the lru_cache according to your project and drop this
      * one.
+     * 
+     * @tparam F The type of the function to be called on scope exit. This function must not throw.
      */
     template <typename F>
     class guarded_scope {
        public:
         explicit guarded_scope(F &&f) noexcept : f_(std::move(f)), dismiss_{false} {}
 
-        ~guarded_scope() noexcept(noexcept(f_())) {
+        ~guarded_scope() noexcept {
             if (!dismiss_) f_();
         }
 
