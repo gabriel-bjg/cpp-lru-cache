@@ -111,7 +111,7 @@ class lru_cache {
        public:
         explicit guarded_scope(F &&f) noexcept : f_(std::move(f)), dismiss_{false} {}
 
-        ~guarded_scope() noexcept(noexcept(f_)) {
+        ~guarded_scope() noexcept(noexcept(f_())) {
             if (!dismiss_) f_();
         }
 
