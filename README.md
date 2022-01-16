@@ -81,3 +81,8 @@ if (cache.empty()) {
 ```
 
 For more examples please see [behavioral tests](./test/lru_cache_tests.cpp)
+
+## Todo
+* Cross compile
+* Add static analyzers: cppcheck, clang-tidy
+* Benchmarks
