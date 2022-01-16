@@ -27,7 +27,7 @@ struct hash<int_wrapper> {
         if (x.value == kInvalidArgValue) {
             static int invalid_times = 0;
             invalid_times++;
-            if (invalid_times == 2 || invalid_times == 6) throw invalid_hashing_argument{};
+            if (invalid_times == 2 || invalid_times == 5) throw invalid_hashing_argument{};
         }
 
         return hash<int>()(x.value);
