@@ -105,7 +105,7 @@ class lru_cache {
      * https://www.drdobbs.com/cpp/generic-change-the-way-you-write-excepti/184403758 If you already have a pattern/mechanism in
      * your project for handling this situation, please consider adapting the lru_cache according to your project and drop this
      * one.
-     * 
+     *
      * @tparam F The type of the function to be called on scope exit. This function must not throw.
      */
     template <typename F>
